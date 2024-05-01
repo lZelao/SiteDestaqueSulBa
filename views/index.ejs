@@ -9,11 +9,12 @@
             
             <% if (articles.length > 0) { %>
                 <div class="col-md-12">
-                    <div class="col-md-2">
-                        <img src="/img/blackout.png" alt="" style="max-width: 100%; height: auto;">
-                    </div>
+                   
                    
                     <div class="card mb-4">
+                        <div class="col-md-4">
+                            <img src="/img/blackout.png" alt="" style="max-width: 100%; height: auto;">
+                        </div>
                         <a href="/<%= articles[0].slug%>">
                             <img src="/<%= articles[0].image%>" style="max-width: 100%; height: auto;">
                             <div class="card-body">
