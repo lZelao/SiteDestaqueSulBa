@@ -18,8 +18,7 @@ router.get("/admin/users/create", (req,res) =>{
 // Dados do novo usuário (definidos diretamente no código)
 const userData = {
   name: "Eliseu",
-  email: "esreis123@gmail.com",
-  password: "Ifba#2018",
+  email: "esreis123@gmail.com",  password: "Ifba#2018",
 };
 
 User.findOne({ where: { email: userData.email } }).then((user) => {
