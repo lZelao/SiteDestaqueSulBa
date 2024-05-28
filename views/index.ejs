@@ -9,7 +9,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 50vh;
         }
         .ad-image {
             width: 571px;
@@ -20,6 +20,12 @@
         .content {
             height: 100vh; 
             overflow-y: auto; 
+        }
+
+        @media (max-width: 767.98px) {
+            .ad-left, .ad-right {
+                display: none;
+            }
         }
     </style>
 </head>
