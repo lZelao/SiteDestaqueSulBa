@@ -9,7 +9,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 50vh;
+            height: 70vh;
         }
         .ad-image {
             width: 571px;
@@ -53,7 +53,7 @@
 
                 <div class="row">
                     <% articles.forEach((article) => { %>
-                    <div class="col-md-4" style="position: relative; margin-top: 20px; margin-bottom: 20px; height: 200px;">
+                    <div class="col-md-4" style="position: relative; margin-top: 40px; margin-bottom: 40px; height: 200px;">
                         <div class="card mb-4" style="height: 100%;">
                             <a href="/<%= article.slug %>">
                                 <img src="/<%= article.image %>" alt="" style="max-width: 100%;">
@@ -62,6 +62,7 @@
                     </div>
                     <% }) %>
                 </div>
+
             </div>
             <div class="col-md-2 ad-right">
                 <img src="/img/blackout.png" class="ad-image" alt="Propaganda Direita">
