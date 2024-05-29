@@ -113,30 +113,33 @@ app.get("/:slug",(req,res)=>{
 
 
 
-app.get("/category/:slug",(req, res)=>{
-    var slug = req.params.slug;
-    Category.findOne({
-        where:{
-            slug : slug
-        }, 
-        include: [{model: Article}]
-    }).then (category =>{
-        if(category != undefined){
+app.get("/category/:slug", async (req, res) => {
+    try {
+        const slug = req.params.slug;
 
-            Category.findAll().then(categories =>{
-                res.render("index",{articles: category.articles, categories: categories});
-            });
-        }else{
-            res.redirect("/");
-            
+        // Busca a categoria pelo slug
+        const category = await Category.findOne({
+            where: { slug },
+            include: [{ model: Article }]
+        });
+
+        if (!category) {
+            throw new Error('Categoria não encontrada.');
         }
-    }).catch(err =>{
 
+        // Busca todas as categorias para o menu
+        const categories = await Category.findAll();
+
+        res.render("index", {
+            articles: category.Articles,
+            destaquesArticles: [], // Define destaquesArticles como um array vazio
+            categories
+        });
+    } catch (error) {
+        console.error('Erro ao buscar artigos da categoria:', error);
         res.redirect("/");
-
-    });
+    }
 });
-
 app.listen(3030, ()=>{
     console.log("O servidor está rodando!")
 });
