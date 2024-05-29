@@ -46,34 +46,37 @@
             </a>
 
             
-            </div>
-            <div class="col-md-8 content" style="margin-top: 80px; max-width: 800px;">
-                <div class="row">
-                    <% if (articles.length > 0) { %>
-                        <div class="col-md-12">
-                            <div class="card mb-4">
-                                <a href="/<%= articles[0].slug %>">
-                                    <img src="/<%= articles[0].image %>" style="max-width: 100%; height: auto;">
-                                    <div class="card-body">
-                                        <a class="btn btn-warning" href="/<%= articles[0].slug %>">Ler Matéria</a>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    <% } %>
+            <h1>Últimos Artigos</h1>
+    <div id="articles">
+        <% if (allArticles.length > 0) { %>
+            <% allArticles.forEach(article => { %>
+                <div class="article">
+                    <h2><%= article.title %></h2>
+                    <p><%= article.description %></p>
+                    <a href="/articles/<%= article.id %>">Leia mais</a>
                 </div>
+            <% }); %>
+        <% } else { %>
+            <p>Nenhum artigo encontrado.</p>
+        <% } %>
+    </div>
 
-                <div class="row">
-                    <% articles.forEach((article) => { %>
-                    <div class="col-md-4" style="position: relative; margin-top: 40px; margin-bottom: 190px; height: 200px; py-4">
-                        <div class="card mb-4" style="height: 100%;">
-                            <a href="/<%= article.slug %>">
-                                <img src="/<%= article.image %>" alt="" style="max-width: 100%;">
-                            </a>
-                        </div>
-                    </div>
-                    <% }) %>
+    <hr>
+
+    <h1>Artigos em Destaque</h1>
+    <div id="destaques">
+        <% if (destaquesArticles.length > 0) { %>
+            <% destaquesArticles.forEach(article => { %>
+                <div class="article">
+                    <h2><%= article.title %></h2>
+                    <p><%= article.description %></p>
+                    <a href="/articles/<%= article.id %>">Leia mais</a>
                 </div>
+            <% }); %>
+        <% } else { %>
+            <p>Nenhum artigo em destaque encontrado.</p>
+        <% } %>
+    </div>
                 <h1 class="display-4">Destaques</h1>
 
 
