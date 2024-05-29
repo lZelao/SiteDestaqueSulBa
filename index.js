@@ -62,6 +62,10 @@ app.get("/",(req, res) =>{
 
 });
 
+app.get('/anuncie', (req, res) => {
+    res.render('Anuncie'); // Renderiza o arquivo Anuncie.ejs
+});
+
 app.get('/quem-somos', (req, res) => {
     res.render('QuemSomos'); // Renderiza o arquivo QuemSomos.ejs
 });
