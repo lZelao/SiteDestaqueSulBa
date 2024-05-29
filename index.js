@@ -44,22 +44,37 @@ connection
 })
 
 
-app.get("/",(req, res) =>{
+app.get("/", (req, res) => {
     Article.findAll({
-        order:[
-            ['id','DESC']
-        ],
+        order: [['id', 'DESC']],
         limit: 4
-
-    }).then(articles =>{
-
-        Category.findAll().then(categories =>{
-
-            res.render("index",{articles: articles, categories: categories});
+    })
+    .then(articles => {
+        Article.findAll({
+            include: [{
+                model: Category,
+                where: { title: 'Destaques' }
+            }]
         })
-       
+        .then(destaquesArticles => {
+            Category.findAll()
+                .then(categories => {
+                    res.render("index", { articles, destaquesArticles, categories });
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar categorias:', error);
+                    res.redirect("/");
+                });
+        })
+        .catch(error => {
+            console.error('Erro ao buscar artigos em destaque:', error);
+            res.redirect("/");
+        });
+    })
+    .catch(error => {
+        console.error('Erro ao buscar artigos:', error);
+        res.redirect("/");
     });
-
 });
 
 app.get('/contato', (req, res) => {
