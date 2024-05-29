@@ -44,38 +44,23 @@ connection
 })
 
 
-app.get("/", async (req, res) => {
-    try {
-        // Busca todos os artigos (geral)
-        const allArticles = await Article.findAll({
-            order: [['id', 'DESC']],
-            limit: 10 // Ajuste o limite conforme necessário
-        });
+app.get("/",(req, res) =>{
+    Article.findAll({
+        order:[
+            ['id','DESC']
+        ],
+        limit: 4
 
-        // Busca a categoria "Destaques"
-        const destaquesCategory = await Category.findOne({
-            where: { title: 'Destaques' }, // Supondo que o slug da categoria Destaques seja 'destaques'
-            include: [{ model: Article }]
-        });
+    }).then(articles =>{
 
-        if (!destaquesCategory) {
-            throw new Error('Categoria "Destaques" não encontrada.');
-        }
+        Category.findAll().then(categories =>{
 
-        // Busca todas as categorias para o menu de categorias
-        const categories = await Category.findAll();
+            res.render("index",{articles: articles, categories: categories});
+        })
+       
+    });
 
-        // Renderiza a página index com todos os artigos e os artigos da categoria Destaques
-        res.render("index", { allArticles, destaquesArticles: destaquesCategory.Articles, categories });
-    } catch (error) {
-        console.error('Erro ao buscar artigos:', error);
-        res.redirect("/");
-    }
 });
-
-
-
-
 
 app.get('/contato', (req, res) => {
     res.render('contato'); // Renderiza o arquivo Contato.ejs
