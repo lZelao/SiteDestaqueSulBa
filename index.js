@@ -62,6 +62,31 @@ app.get("/",(req, res) =>{
 
 });
 
+
+app.get("/", (req, res) => {
+    Category.findOne({ where: { name: 'Destaques' } }).then(destaqueCategory => {
+        if (destaqueCategory) {
+            Article.findAll({
+                where: {
+                    categoryId: destaqueCategory.id
+                },
+                order: [
+                    ['id', 'DESC']
+                ]
+            }).then(articles => {
+                Category.findAll().then(categories => {
+                    res.render("index", { articles: articles, categories: categories });
+                });
+            });
+        } else {
+            res.render("index", { articles: [], categories: [] });
+        }
+    });
+});
+
+
+
+
 app.get('/contato', (req, res) => {
     res.render('contato'); // Renderiza o arquivo Contato.ejs
 });
