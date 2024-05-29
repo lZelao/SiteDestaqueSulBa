@@ -63,6 +63,21 @@
 
     <hr>
 
+    <h1>Artigos em Destaque</h1>
+    <div id="destaques">
+        <% if (destaquesArticles && destaquesArticles.length > 0) { %>
+            <% destaquesArticles.forEach(article => { %>
+                <div class="article">
+                    <h2><%= article.title %></h2>
+                    <p><%= article.description %></p>
+                    <a href="/articles/<%= article.id %>">Leia mais</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>Nenhum artigo em destaque encontrado.</p>
+        <% } %>
+    </div>
+
    
                 <%- include('partials/footerP') %>
 

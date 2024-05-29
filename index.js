@@ -54,7 +54,7 @@ app.get("/", async (req, res) => {
 
         // Busca a categoria "Destaques"
         const destaquesCategory = await Category.findOne({
-            where: { slug: 'Destaques' }, // Supondo que o slug da categoria Destaques seja 'destaques'
+            where: { title: 'Destaques' }, // Supondo que o slug da categoria Destaques seja 'destaques'
             include: [{ model: Article }]
         });
 
