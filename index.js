@@ -44,45 +44,35 @@ connection
 })
 
 
-app.get("/",(req, res) =>{
-    Article.findAll({
-        order:[
-            ['id','DESC']
-        ],
-        limit: 4
+app.get("/", async (req, res) => {
+    try {
+        // Busca todos os artigos (geral)
+        const allArticles = await Article.findAll({
+            order: [['id', 'DESC']],
+            limit: 10 // Ajuste o limite conforme necessário
+        });
 
-    }).then(articles =>{
+        // Busca a categoria "Destaques"
+        const destaquesCategory = await Category.findOne({
+            where: { slug: 'Destaques' }, // Supondo que o slug da categoria Destaques seja 'destaques'
+            include: [{ model: Article }]
+        });
 
-        Category.findAll().then(categories =>{
-
-            res.render("index",{articles: articles, categories: categories});
-        })
-       
-    });
-
-});
-
-
-app.get("/", (req, res) => {
-    Category.findOne({ where: { name: 'Destaques' } }).then(destaqueCategory => {
-        if (destaqueCategory) {
-            Article.findAll({
-                where: {
-                    categoryId: destaqueCategory.id
-                },
-                order: [
-                    ['id', 'DESC']
-                ]
-            }).then(articles => {
-                Category.findAll().then(categories => {
-                    res.render("index", { articles: articles, categories: categories });
-                });
-            });
-        } else {
-            res.render("index", { articles: [], categories: [] });
+        if (!destaquesCategory) {
+            throw new Error('Categoria "Destaques" não encontrada.');
         }
-    });
+
+        // Busca todas as categorias para o menu de categorias
+        const categories = await Category.findAll();
+
+        // Renderiza a página index com todos os artigos e os artigos da categoria Destaques
+        res.render("index", { allArticles, destaquesArticles: destaquesCategory.Articles, categories });
+    } catch (error) {
+        console.error('Erro ao buscar artigos:', error);
+        res.redirect("/");
+    }
 });
+
 
 
 
