@@ -44,34 +44,22 @@ connection
 })
 
 
-app.get("/", async (req, res) => {
-    try {
-        // Busca os últimos artigos
-        const articles = await Article.findAll({
-            order: [['id', 'DESC']],
-            limit: 4
-        });
+app.get("/",(req, res) =>{
+    Article.findAll({
+        order:[
+            ['id','DESC']
+        ],
+        limit: 4
 
-        // Busca os artigos da categoria "Destaques"
-        const destaquesCategory = await Category.findByPk(3, { // Substitua 3 pelo ID da categoria "Destaques"
-            include: [{ model: Article }]
-        });
+    }).then(articles =>{
 
-        if (!destaquesCategory) {
-            throw new Error('Categoria "Destaques" não encontrada.');
-        }
+        Category.findAll().then(categories =>{
 
-        const categories = await Category.findAll();
+            res.render("index",{articles: articles, categories: categories});
+        })
+       
+    });
 
-        res.render("index", {
-            articles,
-            destaquesArticles: destaquesCategory.Articles || [],
-            categories
-        });
-    } catch (error) {
-        console.error('Erro ao buscar artigos:', error);
-        res.redirect("/");
-    }
 });
 
 app.get('/contato', (req, res) => {
@@ -113,33 +101,30 @@ app.get("/:slug",(req,res)=>{
 
 
 
-app.get("/category/:slug", async (req, res) => {
-    try {
-        const slug = req.params.slug;
+app.get("/category/:slug",(req, res)=>{
+    var slug = req.params.slug;
+    Category.findOne({
+        where:{
+            slug : slug
+        }, 
+        include: [{model: Article}]
+    }).then (category =>{
+        if(category != undefined){
 
-        // Busca a categoria pelo slug
-        const category = await Category.findOne({
-            where: { slug },
-            include: [{ model: Article }]
-        });
-
-        if (!category) {
-            throw new Error('Categoria não encontrada.');
+            Category.findAll().then(categories =>{
+                res.render("index",{articles: category.articles, categories: categories});
+            });
+        }else{
+            res.redirect("/");
+            
         }
+    }).catch(err =>{
 
-        // Busca todas as categorias para o menu
-        const categories = await Category.findAll();
-
-        res.render("index", {
-            articles: category.Articles,
-            destaquesArticles: [], // Define destaquesArticles como um array vazio
-            categories
-        });
-    } catch (error) {
-        console.error('Erro ao buscar artigos da categoria:', error);
         res.redirect("/");
-    }
+
+    });
 });
+
 app.listen(3030, ()=>{
     console.log("O servidor está rodando!")
 });
