@@ -62,6 +62,10 @@ app.get("/",(req, res) =>{
 
 });
 
+app.get('/quem-somos', (req, res) => {
+    res.render('QuemSomos'); // Renderiza o arquivo QuemSomos.ejs
+});
+
 app.get("/:slug",(req,res)=>{
 
     var slug =req.params.slug;
