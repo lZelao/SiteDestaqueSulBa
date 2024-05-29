@@ -1,13 +1,56 @@
-<%- include('partials/header') %>
-    <%- include('partials/homenavbar') %>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem Somos - Destaque Sul Bahia</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .jumbotron-custom {
+            background-color: #f8f9fa;
+            padding: 2rem 1rem;
+            border-radius: 0.3rem;
+        }
+        .section-title {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Destaque Sul Bahia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/quem-somos">Quem Somos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contato">Contato</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/anuncie">Anuncie</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
+    <!-- Jumbotron -->
     <div class="jumbotron jumbotron-custom text-center">
         <div class="container">
             <h1 class="display-4">Quem Somos</h1>
             <p class="lead">Destaque Sul Bahia - A sua fonte de notícias confiáveis e atualizadas da região Sul da Bahia.</p>
         </div>
     </div>
-    
+
     <!-- Main Content -->
     <div class="container">
         <div class="row">
@@ -16,12 +59,12 @@
                 <p>
                     No Destaque Sul Bahia, nossa missão é informar, educar e entreter a comunidade da região Sul da Bahia com notícias de alta qualidade, análises detalhadas e histórias inspiradoras. Estamos comprometidos com a verdade e a transparência, oferecendo uma cobertura jornalística imparcial e precisa sobre os acontecimentos que impactam nossa região.
                 </p>
-    
+
                 <h2 class="section-title">Nossa Visão</h2>
                 <p>
                     Aspiramos ser a principal fonte de notícias e informações da região Sul da Bahia, reconhecida por nossa integridade, inovação e conexão com a comunidade. Nossa visão é criar um ambiente onde os cidadãos possam se manter informados e engajados com os temas mais relevantes do dia a dia.
                 </p>
-    
+
                 <h2 class="section-title">Nossos Valores</h2>
                 <ul>
                     <li><strong>Integridade:</strong> Compromisso com a verdade e a ética em todas as nossas publicações.</li>
@@ -30,24 +73,32 @@
                     <li><strong>Inovação:</strong> Busca constante por novas formas de comunicar e engajar nosso público.</li>
                     <li><strong>Excelência:</strong> Padrão elevado de qualidade em todas as nossas atividades.</li>
                 </ul>
-    
+
                 <h2 class="section-title">Nossa Equipe</h2>
                 <p>
                     Nossa equipe é composta por jornalistas experientes, fotógrafos talentosos e especialistas em diversas áreas, todos dedicados a fornecer as melhores notícias e análises para nossa audiência. Acreditamos na diversidade de opiniões e na colaboração para trazer uma cobertura completa e rica em perspectivas.
                 </p>
-    
+
                 <h2 class="section-title">Nosso Compromisso</h2>
                 <p>
                     Estamos comprometidos em servir a comunidade da região Sul da Bahia com responsabilidade e paixão. Valorizamos o feedback dos nossos leitores e estamos sempre abertos ao diálogo para melhorar continuamente nosso serviço.
                 </p>
-    
+
                 <p>
                     Agradecemos por confiar no Destaque Sul Bahia como sua fonte de notícias. Juntos, continuaremos a construir uma comunidade mais informada e conectada.
                 </p>
             </div>
         </div>
     </div>
-        <%- include('partials/footer') %>
-        <%- include('partials/footerP') %>
 
+    <!-- Footer -->
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 Destaque Sul Bahia. Todos os direitos reservados.</p>
+    </footer>
 
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
