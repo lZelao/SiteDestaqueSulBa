@@ -45,21 +45,28 @@ connection
 
 
 app.get("/", (req, res) => {
-    Article.findAll({
+    let articlesPromise = Article.findAll({
         order: [['id', 'DESC']],
         limit: 4
-    })
-    .then(articles => {
-        Article.findAll({
-            include: [{
-                model: Category,
-                where: { title: 'Destaques' }
-            }]
-        })
-        .then(destaquesArticles => {
+    });
+
+    let destaquesArticlesPromise = Category.findByPk(3, { // Substitua 3 pelo ID da categoria "Destaques"
+        include: [{ model: Article }]
+    });
+
+    Promise.all([articlesPromise, destaquesArticlesPromise])
+        .then(([articles, destaquesCategory]) => {
+            if (!destaquesCategory) {
+                throw new Error('Categoria "Destaques" não encontrada.');
+            }
+
             Category.findAll()
                 .then(categories => {
-                    res.render("index", { articles, destaquesArticles, categories });
+                    res.render("index", {
+                        articles,
+                        destaquesArticles: destaquesCategory.Articles || [], // Garante que destaquesArticles seja um array
+                        categories
+                    });
                 })
                 .catch(error => {
                     console.error('Erro ao buscar categorias:', error);
@@ -67,14 +74,9 @@ app.get("/", (req, res) => {
                 });
         })
         .catch(error => {
-            console.error('Erro ao buscar artigos em destaque:', error);
+            console.error('Erro ao buscar artigos:', error);
             res.redirect("/");
         });
-    })
-    .catch(error => {
-        console.error('Erro ao buscar artigos:', error);
-        res.redirect("/");
-    });
 });
 
 app.get('/contato', (req, res) => {
