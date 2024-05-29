@@ -44,39 +44,34 @@ connection
 })
 
 
-app.get("/", (req, res) => {
-    let articlesPromise = Article.findAll({
-        order: [['id', 'DESC']],
-        limit: 4
-    });
-
-    let destaquesArticlesPromise = Category.findByPk(3, { // Substitua 3 pelo ID da categoria "Destaques"
-        include: [{ model: Article }]
-    });
-
-    Promise.all([articlesPromise, destaquesArticlesPromise])
-        .then(([articles, destaquesCategory]) => {
-            if (!destaquesCategory) {
-                throw new Error('Categoria "Destaques" não encontrada.');
-            }
-
-            Category.findAll()
-                .then(categories => {
-                    res.render("index", {
-                        articles,
-                        destaquesArticles: destaquesCategory.Articles || [], // Garante que destaquesArticles seja um array
-                        categories
-                    });
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar categorias:', error);
-                    res.redirect("/");
-                });
-        })
-        .catch(error => {
-            console.error('Erro ao buscar artigos:', error);
-            res.redirect("/");
+app.get("/", async (req, res) => {
+    try {
+        // Busca os últimos artigos
+        const articles = await Article.findAll({
+            order: [['id', 'DESC']],
+            limit: 4
         });
+
+        // Busca os artigos da categoria "Destaques"
+        const destaquesCategory = await Category.findByPk(3, { // Substitua 3 pelo ID da categoria "Destaques"
+            include: [{ model: Article }]
+        });
+
+        if (!destaquesCategory) {
+            throw new Error('Categoria "Destaques" não encontrada.');
+        }
+
+        const categories = await Category.findAll();
+
+        res.render("index", {
+            articles,
+            destaquesArticles: destaquesCategory.Articles || [],
+            categories
+        });
+    } catch (error) {
+        console.error('Erro ao buscar artigos:', error);
+        res.redirect("/");
+    }
 });
 
 app.get('/contato', (req, res) => {
