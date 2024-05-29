@@ -62,6 +62,9 @@ app.get("/",(req, res) =>{
 
 });
 
+app.get('/contato', (req, res) => {
+    res.render('contato'); // Renderiza o arquivo Contato.ejs
+});
 
 
 app.get('/quem-somos', (req, res) => {
