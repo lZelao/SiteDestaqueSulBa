@@ -76,27 +76,6 @@
                 </div>
                 <h1 class="display-4">Destaques</h1>
 
-                <div class="row">
-                    <% articles.forEach((article) => { %>
-                    <div class="col-md-4" style="position: relative; margin-top: 40px; margin-bottom: 190px; height: 200px; py-4">
-                        <div class="card mb-4" style="height: 100%;">
-                            <a href="/<%= articles[2].slug %>">
-                                <img src="/<%= articles[2].image %>" style="max-width: 100%; height: auto;">
-                                <div class="card-body">
-                                    <a class="btn btn-warning" href="/<%= articles[2].slug %>">Ler Matéria</a>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <% }) %>
-                </div>
-
-
-
-
-
-
-
                 <%- include('partials/footerP') %>
 
             </div>
