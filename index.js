@@ -69,7 +69,7 @@ app.get('/quem-somos', (req, res) => {
 });
 
 app.get('/anuncie', (req, res) => {
-    res.render('Anuncie'); // Renderiza o arquivo Anuncie.ejs
+    res.render('anunciee'); // Renderiza o arquivo Anuncie.ejs
 });
 
 app.get("/:slug",(req,res)=>{
